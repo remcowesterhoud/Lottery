@@ -3,9 +3,19 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+
+<h:head>
+    <title>Lottery</title>
+</h:head>
+
+<h:body>
+    <div id="countdown">
+        Days: <span class="days"></span><br/>
+        Hours: <span class="hours"></span><br/>
+        Minutes: <span class="minutes"></span><br/>
+        Seconds: <span class="seconds"></span>
+    </div>
+</h:body>
+<h:outputScript library="js" name="countdown.js" />
 </html>
