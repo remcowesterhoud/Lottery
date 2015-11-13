@@ -2,7 +2,7 @@
  * Created by Remco on 13-11-2015.
  */
 
-window.onload = initializeCountdown('2015-11-13 16:05:00');
+window.onload = initializeCountdown('2015-11-13 18:05:00 GMT+01:00');
 
 function getTimeRemaining(endTime){
     var totalDiff = Date.parse(endTime) - Date.parse(new Date());
@@ -37,6 +37,10 @@ function initializeCountdown(endTime){
 
         if (time.totalDiff <= 0){
             clearInterval(timeInterval);
+            daysSpan.innerHTML = '0';
+            hoursSpan.innerHTML = '00';
+            minutesSpan.innerHTML = '00';
+            secondsSpan.innerHTML = '00';
         }
     }
 
