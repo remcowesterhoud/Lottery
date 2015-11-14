@@ -15,7 +15,6 @@
 <h:body>
 
     <ui:composition template="layout.xhtml">
-
         <ui:define name="content">
             <div class="row">
                 <div class="jumbotron">
@@ -36,10 +35,17 @@
                     </div>
                 </div>
             </div>
+
+            <h:form id="form">
+                <h:commandLink id="link" style="display:none" action="#{tempBean.test()}" value="click"/>
+            </h:form>
+
+            <h:outputScript library="js" name="countdown.js"/>
+            <script type="text/javascript">
+                window.onload = initializeCountdown("#{tempBean.time}");
+            </script>
+
         </ui:define>
-
-        <h:outputScript library="js" name="countdown.js"/>
-
     </ui:composition>
 
 </h:body>
