@@ -2,7 +2,6 @@ package lottery.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "LOTTERY_PLAYER")
-public class Player implements Serializable{
+public class Player {
 
     @Id
     @Column(name = "PLAYER_ID")

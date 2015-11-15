@@ -15,13 +15,28 @@
 
                 <div class="col-xs-10 col-xs-offset-1">
 
+                    <!--Succesfully signed up-->
                     <h:panelGroup id="confirmed" rendered="#{playerBean.signupConfirmed}">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 Succesfully signed up!
                             </div>
                             <div class="panel-body">
-                                Good luck. May the odds be in your favor!
+                                Good luck. Your ticket number is #{ticketBean.ticket.ticketNumber}.<br/>
+                                Make sure you write this down somewhere.<br/>
+                                May the odds be in your favor!
+                            </div>
+                        </div>
+                    </h:panelGroup>
+
+                    <!--Signup failed-->
+                    <h:panelGroup id="failed" rendered="#{playerBean.signupFailed}">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                Oops, something went wrong!
+                            </div>
+                            <div class="panel-body">
+                                Something went wrong during the singup. Please try again later.
                             </div>
                         </div>
                     </h:panelGroup>

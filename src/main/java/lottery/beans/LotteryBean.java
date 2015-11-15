@@ -22,9 +22,9 @@ public class LotteryBean {
     public LotteryBean(){
     }
 
-    //TODO: delete method, add method for pulling winners
-    public String test(){
-        return null;
+    public void endLottery(){
+        lotteryEJB.fetchNextLottery();
+        //TODO: pull winner
     }
 
     public String getDate(){

@@ -13,15 +13,15 @@ public class PlayerEJB extends EJB{
 
     private static final Logger logger = Logger.getLogger("lottery.ejb.PlayerEJB");
 
-    public boolean createPlayer(String firstName, String lastName, String email){
+    public Player createPlayer(String firstName, String lastName, String email){
         try {
             Player player = new Player(firstName, lastName, email);
             em.persist(player);
-            return true;
+            return player;
         }
         catch (Exception e){
             logger.warning("Could not create player");
-            return false;
+            return null;
         }
     }
 }

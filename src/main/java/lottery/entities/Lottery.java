@@ -2,7 +2,6 @@ package lottery.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -17,7 +16,7 @@ import java.util.Date;
                 query = "SELECT l FROM Lottery l WHERE l.pullDate > :currentDate ORDER BY l.pullDate"
         )
 )
-public class Lottery implements Serializable {
+public class Lottery {
 
     @Id
     @Column(name = "LOTTERY_ID")
@@ -32,6 +31,10 @@ public class Lottery implements Serializable {
     private Collection<Ticket> tickets;
 
     public Lottery() {
+    }
+
+    public Lottery(Date pullDate) {
+        this.pullDate = pullDate;
     }
 
     public Lottery(Date pullDate, Collection<Ticket> tickets) {
