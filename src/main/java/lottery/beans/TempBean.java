@@ -1,13 +1,13 @@
 package lottery.beans;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 
 /**
  * Created by Remco on 14-11-2015.
  */
 @ManagedBean(name = "tempBean")
-@ViewScoped
+@ApplicationScoped
 public class TempBean {
 
     private String time;

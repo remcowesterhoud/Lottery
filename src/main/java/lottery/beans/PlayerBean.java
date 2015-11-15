@@ -1,9 +1,11 @@
 package lottery.beans;
 
 
+import lottery.ejb.TestEJB;
+
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,6 +14,11 @@ import javax.validation.constraints.NotNull;
 @ManagedBean(name = "playerBean")
 @RequestScoped
 public class PlayerBean {
+
+
+    @EJB
+    private TestEJB test;
+
 
     @NotNull
     private String firstName, lastName, email;
@@ -23,6 +30,7 @@ public class PlayerBean {
 
     public void signup(){
         //TODO: save player, generate ticket number, display ticket number
+        test.test();
         setSignupConfirmed(true);
     }
 

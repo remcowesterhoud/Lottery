@@ -1,0 +1,57 @@
+package lottery.entities;
+
+import javax.persistence.*;
+
+/**
+ * Created by Remco on 15-11-2015.
+ */
+@Entity
+@Table(name = "LOTTERY_TICKET")
+public class Ticket {
+
+    @Id
+    @Column(name = "TICKET_NUMBER")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int ticketNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "PLAYER_ID")
+    private Player player;
+
+    @ManyToOne
+    @JoinColumn(name = "LOTTERY_ID")
+    private Lottery lottery;
+
+    public Ticket() {
+    }
+
+    public Ticket(Player player, Lottery lottery) {
+        this.player = player;
+        this.lottery = lottery;
+    }
+
+    public int getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(int ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Lottery getLottery() {
+        return lottery;
+    }
+
+    public void setLottery(Lottery lottery) {
+        this.lottery = lottery;
+    }
+}
+
