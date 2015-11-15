@@ -29,6 +29,12 @@ public class Player implements Serializable{
     public Player() {
     }
 
+    public Player(String fistName, String lastName, String email) {
+        this.fistName = fistName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public Player(String fistName, String lastName, String email, Collection<Ticket> tickets) {
         this.fistName = fistName;
         this.lastName = lastName;

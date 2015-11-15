@@ -1,13 +1,12 @@
 package lottery.beans;
 
 
-import lottery.ejb.TestEJB;
+import lottery.ejb.PlayerEJB;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.validation.constraints.NotNull;
-import java.text.ParseException;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -16,10 +15,8 @@ import java.text.ParseException;
 @RequestScoped
 public class PlayerBean {
 
-
     @EJB
-    private TestEJB test;
-
+    private PlayerEJB playerEJB;
 
     @NotNull
     private String firstName, lastName, email;
@@ -30,12 +27,8 @@ public class PlayerBean {
     }
 
     public void signup(){
-        //TODO: save player, generate ticket number, display ticket number
-        try {
-            test.test();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        //TODO: generate ticket number, display ticket number
+        playerEJB.createPlayer(firstName, lastName, email);
         setSignupConfirmed(true);
     }
 

@@ -5,8 +5,6 @@ import lottery.entities.Lottery;
 import javax.ejb.EJBException;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Date;
 
 /**
@@ -14,10 +12,7 @@ import java.util.Date;
  */
 @Startup
 @Stateful
-public class LotteryEJB {
-
-    @PersistenceContext
-    EntityManager em;
+public class LotteryEJB extends EJB{
 
     public Lottery getNextLottery(){
         try{
