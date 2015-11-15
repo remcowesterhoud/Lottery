@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -30,7 +31,11 @@ public class PlayerBean {
 
     public void signup(){
         //TODO: save player, generate ticket number, display ticket number
-        test.test();
+        try {
+            test.test();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         setSignupConfirmed(true);
     }
 

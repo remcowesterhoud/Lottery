@@ -4,23 +4,35 @@
 
 
 
-function getTimeRemaining(endTime){
-    var totalDiff = Date.parse(endTime) - Date.parse(new Date());
-    var seconds = Math.floor((totalDiff / 1000) % 60);
-    var minutes = Math.floor((totalDiff / 1000 / 60) % 60);
-    var hours = Math.floor((totalDiff / 1000 * 3600) % 24);
-    var days = Math.floor(totalDiff / (1000 * 3600 * 24));
+function getTimeRemaining(endTime) {
+    var parsedDate = Date.parse(endTime);
+    if (isNaN(parsedDate)){
+        return {
+            'totalDiff': 0,
+            'seconds': 0,
+            'minutes': 0,
+            'hours': 0,
+            'days': 0
+        };
+    }
+    else {
+        var totalDiff = parsedDate - Date.parse(new Date());
+        var seconds = Math.floor((totalDiff / 1000) % 60);
+        var minutes = Math.floor((totalDiff / 1000 / 60) % 60);
+        var hours = Math.floor((totalDiff / 1000 * 3600) % 24);
+        var days = Math.floor(totalDiff / (1000 * 3600 * 24));
 
-    return {
-        'totalDiff' : totalDiff,
-        'seconds' : seconds,
-        'minutes' : minutes,
-        'hours' : hours,
-        'days' : days
-    };
+        return {
+            'totalDiff': totalDiff,
+            'seconds': seconds,
+            'minutes': minutes,
+            'hours': hours,
+            'days': days
+        };
+    }
 }
 
-function initializeCountdown(endTime){
+function initializeCountdown(endTime) {
     var countdownDiv = document.getElementById('countdown');
     var daysSpan = countdownDiv.querySelector('.days');
     var hoursSpan = countdownDiv.querySelector('.hours');
@@ -28,7 +40,7 @@ function initializeCountdown(endTime){
     var secondsSpan = countdownDiv.querySelector('.seconds');
 
 
-    function updateClock(){
+    function updateClock() {
         var time = getTimeRemaining(endTime);
 
         daysSpan.innerHTML = time.days;
@@ -36,7 +48,7 @@ function initializeCountdown(endTime){
         minutesSpan.innerHTML = ('0' + time.minutes).slice(-2);
         secondsSpan.innerHTML = ('0' + time.seconds).slice(-2);
 
-        if (time.totalDiff <= 0){
+        if (time.totalDiff <= 0) {
             clearInterval(timeInterval);
             daysSpan.innerHTML = '0';
             hoursSpan.innerHTML = '00';
@@ -50,5 +62,5 @@ function initializeCountdown(endTime){
     }
 
     updateClock(); // run function once at first to avoid delay
-    var timeInterval = setInterval(updateClock,1000);
+    var timeInterval = setInterval(updateClock, 1000);
 }

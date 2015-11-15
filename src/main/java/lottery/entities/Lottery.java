@@ -11,6 +11,12 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "LOTTERY_LOTTERY")
+@NamedQueries(
+        @NamedQuery(
+                name = "nextLottery",
+                query = "SELECT l FROM Lottery l WHERE l.pullDate > :currentDate ORDER BY l.pullDate"
+        )
+)
 public class Lottery implements Serializable {
 
     @Id
