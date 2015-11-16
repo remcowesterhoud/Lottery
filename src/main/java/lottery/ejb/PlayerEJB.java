@@ -1,6 +1,8 @@
 package lottery.ejb;
 
+import lottery.entities.Lottery;
 import lottery.entities.Player;
+import lottery.entities.Ticket;
 
 import javax.ejb.Stateless;
 import java.util.logging.Logger;

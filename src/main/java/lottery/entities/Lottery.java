@@ -2,8 +2,11 @@ package lottery.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -27,8 +30,12 @@ public class Lottery {
     @Column(unique = true)
     private Date pullDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lottery")
-    private Collection<Ticket> tickets;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "lottery")
+    private List<Ticket> tickets;
+
+    @ManyToOne
+    @JoinColumn(name = "WINNER")
+    private Player winner;
 
     public Lottery() {
     }
@@ -37,7 +44,7 @@ public class Lottery {
         this.pullDate = pullDate;
     }
 
-    public Lottery(Date pullDate, Collection<Ticket> tickets) {
+    public Lottery(Date pullDate, List<Ticket> tickets) {
         this.pullDate = pullDate;
         this.tickets = tickets;
     }
@@ -58,11 +65,24 @@ public class Lottery {
         this.pullDate = pullDate;
     }
 
-    public Collection<Ticket> getTickets() {
-        return tickets;
+    public List<Ticket> getTickets() {
+        if (tickets != null) {
+            return tickets;
+        }
+        else {
+            return new ArrayList<Ticket>();
+        }
     }
 
-    public void setTickets(Collection<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }

@@ -9,7 +9,9 @@
     <table name="LOTTERY_LOTTERY" schema="APP" catalog="" type="TABLE">
       <column name="LOTTERY_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
       <column name="PULLDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
-      <primary-key name="SQL151115133309591" columns="LOTTERY_ID"/>
+      <column name="WINNER" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL151116094105581" columns="LOTTERY_ID"/>
+      <foreign-key name="LTTERYLOTTERYWNNER" columns="WINNER" ref-table="LOTTERY_PLAYER" ref-schema="APP" ref-catalog="" ref-columns="PLAYER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="LTTRYTICKETLTTRYID" table="LOTTERY_TICKET" schema="APP" catalog="" columns="LOTTERY_ID"/>
     </table>
     <table name="LOTTERY_PLAYER" schema="APP" catalog="" type="TABLE">
@@ -17,16 +19,120 @@
       <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="FISTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="SQL151115133308990" columns="PLAYER_ID"/>
+      <primary-key name="SQL151116092349610" columns="PLAYER_ID"/>
+      <exported-key name="LTTERYLOTTERYWNNER" table="LOTTERY_LOTTERY" schema="APP" catalog="" columns="WINNER"/>
       <exported-key name="LTTRYTICKETPLYERID" table="LOTTERY_TICKET" schema="APP" catalog="" columns="PLAYER_ID"/>
     </table>
     <table name="LOTTERY_TICKET" schema="APP" catalog="" type="TABLE">
       <column name="TICKET_NUMBER" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
       <column name="LOTTERY_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="PLAYER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="SQL151115133310220" columns="TICKET_NUMBER"/>
+      <primary-key name="SQL151116092349820" columns="TICKET_NUMBER"/>
       <foreign-key name="LTTRYTICKETLTTRYID" columns="LOTTERY_ID" ref-table="LOTTERY_LOTTERY" ref-schema="APP" ref-catalog="" ref-columns="LOTTERY_ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="LTTRYTICKETPLYERID" columns="PLAYER_ID" ref-table="LOTTERY_PLAYER" ref-schema="APP" ref-catalog="" ref-columns="PLAYER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_CUSTOMERORDER" schema="APP" catalog="" type="TABLE">
+      <column name="ORDERID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DISCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="LASTUPDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="SHIPMENTINFO" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="CHAR" precision="1" scale="0" nullable="true" jdbcType="1"/>
+      <primary-key name="SQL151105141029840" columns="ORDERID"/>
+      <exported-key name="PRSSTNCRDRLNTMRDRD" table="PERSISTENCE_ORDER_LINEITEM" schema="APP" catalog="" columns="ORDERID"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_LINEITEM" schema="APP" catalog="" type="TABLE">
+      <column name="ITEMID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="QUANTITY" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ORDERID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="VENDORPARTNUMBER" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="SQL151105141030020" columns="ITEMID,ORDERID"/>
+      <foreign-key name="PRSSTNCRDRLNTMRDRD" columns="ORDERID" ref-table="PERSISTENCE_ORDER_CUSTOMERORDER" ref-schema="APP" ref-catalog="" ref-columns="ORDERID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PRSSTNCVNDRPRTNMBR" columns="VENDORPARTNUMBER" ref-table="PERSISTENCE_ORDER_VENDOR_PART" ref-schema="APP" ref-catalog="" ref-columns="VENDORPARTNUMBER" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_PART" schema="APP" catalog="" type="TABLE">
+      <column name="PARTNUMBER" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="REVISION" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="REVISIONDATE" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="BOMPARTNUMBER" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="BOMREVISION" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL151105141030110" columns="PARTNUMBER,REVISION"/>
+      <foreign-key name="PRSSTNCRDBMPRTNMBR" columns="BOMPARTNUMBER,BOMREVISION" ref-table="PERSISTENCE_ORDER_PART" ref-schema="APP" ref-catalog="" ref-columns="PARTNUMBER,REVISION" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="PRSSTNCRDBMPRTNMBR" table="PERSISTENCE_ORDER_PART" schema="APP" catalog="" columns="BOMPARTNUMBER,BOMREVISION"/>
+      <exported-key name="PRSSTNCRDRPPRTNMBR" table="PERSISTENCE_ORDER_PART_DETAIL" schema="APP" catalog="" columns="PARTNUMBER,REVISION"/>
+      <exported-key name="PRSSTNCRDRVPRTNMBR" table="PERSISTENCE_ORDER_VENDOR_PART" schema="APP" catalog="" columns="PARTNUMBER,PARTREVISION"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_PART_DETAIL" schema="APP" catalog="" type="TABLE">
+      <column name="REVISION" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PARTNUMBER" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DRAWING" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="SPECIFICATION" sqlType="CLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2005"/>
+      <primary-key name="SQL151105141030190" columns="REVISION,PARTNUMBER"/>
+      <foreign-key name="PRSSTNCRDRPPRTNMBR" columns="PARTNUMBER,REVISION" ref-table="PERSISTENCE_ORDER_PART" ref-schema="APP" ref-catalog="" ref-columns="PARTNUMBER,REVISION" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_SEQUENCE_GENERATOR" schema="APP" catalog="" type="TABLE">
+      <column name="GEN_KEY" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="GEN_VALUE" sqlType="DECIMAL" precision="15" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SQL151105140609750" columns="GEN_KEY"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_VENDOR" schema="APP" catalog="" type="TABLE">
+      <column name="VENDORID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTACT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="VENDORNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL151105141029750" columns="VENDORID"/>
+      <exported-key name="PRSSTNCRDRVNDVNDRD" table="PERSISTENCE_ORDER_VENDOR_PART" schema="APP" catalog="" columns="VENDORID"/>
+    </table>
+    <table name="PERSISTENCE_ORDER_VENDOR_PART" schema="APP" catalog="" type="TABLE">
+      <column name="VENDORPARTNUMBER" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PRICE" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <column name="VENDORID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PARTREVISION" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PARTNUMBER" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL151105141029930" columns="VENDORPARTNUMBER"/>
+      <foreign-key name="PRSSTNCRDRVPRTNMBR" columns="PARTNUMBER,PARTREVISION" ref-table="PERSISTENCE_ORDER_PART" ref-schema="APP" ref-catalog="" ref-columns="PARTNUMBER,REVISION" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PRSSTNCRDRVNDVNDRD" columns="VENDORID" ref-table="PERSISTENCE_ORDER_VENDOR" ref-schema="APP" ref-catalog="" ref-columns="VENDORID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="PRSSTNCVNDRPRTNMBR" table="PERSISTENCE_ORDER_LINEITEM" schema="APP" catalog="" columns="VENDORPARTNUMBER"/>
+    </table>
+    <table name="PIZZA_DELIVERY_CARTITEM" schema="APP" catalog="" type="TABLE">
+      <column name="CARTITEMID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="AMOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="CUSTOMERORDERID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PIZZA_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="CARTITEMLIST_KEY" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL151111135454470" columns="CARTITEMID,CUSTOMERORDERID"/>
+      <foreign-key name="PZZDLVRYCCSTMRRDRD" columns="CUSTOMERORDERID" ref-table="PIZZA_DELIVERY_ORDER" ref-schema="APP" ref-catalog="" ref-columns="CUSTOMERORDERID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PZZDLVRYCRTTEMPZZD" columns="PIZZA_ID" ref-table="PIZZA_DELIVERY_PIZZAS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="PIZZA_DELIVERY_ORDER" schema="APP" catalog="" type="TABLE">
+      <column name="CUSTOMERORDERID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="SQL151111135454410" columns="CUSTOMERORDERID"/>
+      <exported-key name="PZZDLVRYCCSTMRRDRD" table="PIZZA_DELIVERY_CARTITEM" schema="APP" catalog="" columns="CUSTOMERORDERID"/>
+    </table>
+    <table name="PIZZA_DELIVERY_PERSONS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="ZIP" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CITY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FIRSTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL151111135702140" columns="ID"/>
+    </table>
+    <table name="PIZZA_DELIVERY_PIZZAS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
+      <column name="CALORIES" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PRICE" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <primary-key name="SQL151111135454350" columns="ID"/>
+      <exported-key name="PZZDLVRYCRTTEMPZZD" table="PIZZA_DELIVERY_CARTITEM" schema="APP" catalog="" columns="PIZZA_ID"/>
+    </table>
+    <table name="SEQUENCE" schema="APP" catalog="" type="TABLE">
+      <column name="SEQ_NAME" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEQ_COUNT" sqlType="DECIMAL" precision="15" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SQL151111132537300" columns="SEQ_NAME"/>
     </table>
   </data-source>
 </component>

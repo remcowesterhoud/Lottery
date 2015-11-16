@@ -20,8 +20,8 @@ public class TicketBean {
     private TicketEJB ticketEJB;
     private Ticket ticket;
 
-    public Ticket createTicket(Player player, Lottery lottery){
-        ticket = ticketEJB.createTicket(player, lottery);
+    public Ticket createTicket(int playerId, int lotteryId){
+        ticket = ticketEJB.createTicket(playerId, lotteryId);
         if (ticket != null){
             return ticket;
         }

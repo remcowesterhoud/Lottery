@@ -3,6 +3,7 @@ package lottery.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -23,7 +24,10 @@ public class Player {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
-    private Collection<Ticket> tickets;
+    private List<Ticket> tickets;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "winner")
+    private List<Lottery> wonLotteries;
 
     public Player() {
     }
@@ -34,7 +38,7 @@ public class Player {
         this.email = email;
     }
 
-    public Player(String fistName, String lastName, String email, Collection<Ticket> tickets) {
+    public Player(String fistName, String lastName, String email, List<Ticket> tickets) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.email = email;
@@ -73,11 +77,19 @@ public class Player {
         this.email = email;
     }
 
-    public Collection<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Collection<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public List<Lottery> getWonLotteries() {
+        return wonLotteries;
+    }
+
+    public void setWonLotteries(List<Lottery> wonLotteries) {
+        this.wonLotteries = wonLotteries;
     }
 }

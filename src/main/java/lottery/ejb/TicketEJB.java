@@ -15,9 +15,13 @@ public class TicketEJB extends EJB {
 
     private static final Logger logger = Logger.getLogger("lottery.ejb.TicketEJB");
 
-    public Ticket createTicket(Player player, Lottery lottery){
+    public Ticket createTicket(int playerId, int lotteryId){
         try{
+            Player player = em.find(Player.class, playerId);
+            Lottery lottery = em.find(Lottery.class, lotteryId);
             Ticket ticket = new Ticket(player, lottery);
+            player.getTickets().add(ticket);
+            lottery.getTickets().add(ticket);
             em.persist(ticket);
             return ticket;
         }

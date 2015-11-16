@@ -21,7 +21,7 @@ public class ConfigEJB extends EJB{
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             lotteryEJB.createLottery(df.parse("2015-11-15 15:31:00"));
-            lotteryEJB.createLottery(df.parse("2015-11-16 15:00:00"));
+            lotteryEJB.createLottery(df.parse("2015-11-16 09:00:00"));
             lotteryEJB.createLottery(df.parse("2015-11-18 12:00:00"));
             lotteryEJB.createLottery(df.parse("2015-11-19 15:30:00"));
             lotteryEJB.createLottery(df.parse("2015-12-1 10:00:00"));

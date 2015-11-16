@@ -1,6 +1,7 @@
 package lottery.beans;
 
 import lottery.ejb.LotteryEJB;
+import lottery.ejb.PlayerEJB;
 import lottery.entities.Lottery;
 
 import javax.ejb.EJB;
@@ -18,13 +19,15 @@ public class LotteryBean {
 
     @EJB
     private LotteryEJB lotteryEJB;
+    @EJB
+    private PlayerEJB playerEJB;
 
     public LotteryBean(){
     }
 
     public void endLottery(){
+        lotteryEJB.pullWinner();
         lotteryEJB.fetchNextLottery();
-        //TODO: pull winner
     }
 
     public String getDate(){

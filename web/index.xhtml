@@ -33,6 +33,9 @@
                                     Sign up for a chance to win absolutely nothing before it's too late!
                                 </p>
                                 <a class="btn btn-default btn-lg" href="signup.xhtml">Sign up now!</a>
+                                <h:form>
+                                    <h:commandButton styleClass="btn btn-primary" action="#{lotteryBean.endLottery()}" value="Force pull winner"/>
+                                </h:form>
                             </div>
                         </div>
                     </div>
