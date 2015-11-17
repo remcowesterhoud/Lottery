@@ -22,6 +22,9 @@ public class Ticket {
     @JoinColumn(name = "LOTTERY_ID")
     private Lottery lottery;
 
+    @OneToOne(mappedBy = "winningTicket")
+    private Lottery wonLottery;
+
     public Ticket() {
     }
 
@@ -52,6 +55,14 @@ public class Ticket {
 
     public void setLottery(Lottery lottery) {
         this.lottery = lottery;
+    }
+
+    public Lottery getWonLottery() {
+        return wonLottery;
+    }
+
+    public void setWonLottery(Lottery wonLottery) {
+        this.wonLottery = wonLottery;
     }
 }
 

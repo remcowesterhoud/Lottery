@@ -9,9 +9,9 @@
     <table name="LOTTERY_LOTTERY" schema="APP" catalog="" type="TABLE">
       <column name="LOTTERY_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
       <column name="PULLDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
-      <column name="WINNER" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="SQL151116094105581" columns="LOTTERY_ID"/>
-      <foreign-key name="LTTERYLOTTERYWNNER" columns="WINNER" ref-table="LOTTERY_PLAYER" ref-schema="APP" ref-catalog="" ref-columns="PLAYER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <column name="WINNING_TICKET" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL151117085113971" columns="LOTTERY_ID"/>
+      <foreign-key name="LTTRYLTTRWNNNGTCKT" columns="WINNING_TICKET" ref-table="LOTTERY_TICKET" ref-schema="APP" ref-catalog="" ref-columns="TICKET_NUMBER" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="LTTRYTICKETLTTRYID" table="LOTTERY_TICKET" schema="APP" catalog="" columns="LOTTERY_ID"/>
     </table>
     <table name="LOTTERY_PLAYER" schema="APP" catalog="" type="TABLE">
@@ -19,17 +19,17 @@
       <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="FISTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="LASTNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="SQL151116092349610" columns="PLAYER_ID"/>
-      <exported-key name="LTTERYLOTTERYWNNER" table="LOTTERY_LOTTERY" schema="APP" catalog="" columns="WINNER"/>
+      <primary-key name="SQL151117085113670" columns="PLAYER_ID"/>
       <exported-key name="LTTRYTICKETPLYERID" table="LOTTERY_TICKET" schema="APP" catalog="" columns="PLAYER_ID"/>
     </table>
     <table name="LOTTERY_TICKET" schema="APP" catalog="" type="TABLE">
       <column name="TICKET_NUMBER" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="R0VORVJBVEVEX0JZX0RFRkFVTFQ=" autoIncrement="true"/>
       <column name="LOTTERY_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="PLAYER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="SQL151116092349820" columns="TICKET_NUMBER"/>
+      <primary-key name="SQL151117085114100" columns="TICKET_NUMBER"/>
       <foreign-key name="LTTRYTICKETLTTRYID" columns="LOTTERY_ID" ref-table="LOTTERY_LOTTERY" ref-schema="APP" ref-catalog="" ref-columns="LOTTERY_ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="LTTRYTICKETPLYERID" columns="PLAYER_ID" ref-table="LOTTERY_PLAYER" ref-schema="APP" ref-catalog="" ref-columns="PLAYER_ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="LTTRYLTTRWNNNGTCKT" table="LOTTERY_LOTTERY" schema="APP" catalog="" columns="WINNING_TICKET"/>
     </table>
     <table name="PERSISTENCE_ORDER_CUSTOMERORDER" schema="APP" catalog="" type="TABLE">
       <column name="ORDERID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>

@@ -26,9 +26,6 @@ public class Player {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
     private List<Ticket> tickets;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "winner")
-    private List<Lottery> wonLotteries;
-
     public Player() {
     }
 
@@ -83,13 +80,5 @@ public class Player {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
-    }
-
-    public List<Lottery> getWonLotteries() {
-        return wonLotteries;
-    }
-
-    public void setWonLotteries(List<Lottery> wonLotteries) {
-        this.wonLotteries = wonLotteries;
     }
 }

@@ -9,6 +9,7 @@ import javax.ejb.EJBException;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateful;
+import javax.persistence.NoResultException;
 
 import java.util.Collection;
 import java.util.Date;
@@ -42,7 +43,11 @@ public class LotteryEJB extends EJB {
             nextLottery = em.createNamedQuery("nextLottery", Lottery.class)
                     .setParameter("currentDate", new Date())
                     .setMaxResults(1).getSingleResult();
-        } catch (EJBException e) {
+        }
+        catch (NoResultException e){
+            logger.warning("No available lotteries");
+        }
+        catch (EJBException e) {
             logger.warning("Error fetching lottery");
         }
     }
@@ -51,17 +56,21 @@ public class LotteryEJB extends EJB {
         return nextLottery;
     }
 
-    public Player pullWinner(){
+    public Ticket pullWinner(){
         try {
             Lottery lottery = em.find(Lottery.class, nextLottery.getLotteryId());
             List<Ticket> tickets = lottery.getTickets();
             Random random = new Random();
             int i = random.nextInt(tickets.size());
-            Player winner = tickets.get(i).getPlayer();
-            lottery.setWinner(winner);
-            winner.getWonLotteries().add(lottery);
+            Ticket winner = tickets.get(i);
+            lottery.setWinningTicket(winner);
+            winner.setWonLottery(lottery);
             em.flush();
             return winner;
+        }
+        catch (NullPointerException e){
+            logger.warning("Could not pull winner. There are currently no lotteries running");
+            return null;
         }
         catch (IllegalArgumentException e){
             logger.warning("Could not pull winner. No tickets have been sold");
@@ -69,6 +78,23 @@ public class LotteryEJB extends EJB {
         }
         catch (EJBException e){
             logger.warning("Could not pull winner");
+            return null;
+        }
+    }
+
+    public List<Lottery> getPreviousLotteries(){
+        try{
+            List<Lottery> lotteries = em.createNamedQuery("previousLotteries", Lottery.class)
+                    .setParameter("currentDate", new Date())
+                    .getResultList();
+            return lotteries;
+        }
+        catch (NoResultException e){
+            logger.warning("No available lotteries");
+            return null;
+        }
+        catch (EJBException e) {
+            logger.warning("Error fetching lotteries");
             return null;
         }
     }

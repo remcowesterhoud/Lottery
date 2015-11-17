@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -13,12 +12,16 @@ import java.util.List;
  */
 @Entity
 @Table(name = "LOTTERY_LOTTERY")
-@NamedQueries(
+@NamedQueries({
         @NamedQuery(
                 name = "nextLottery",
                 query = "SELECT l FROM Lottery l WHERE l.pullDate > :currentDate ORDER BY l.pullDate"
+        ),
+        @NamedQuery(
+                name = "previousLotteries",
+                query = "SELECT l FROM Lottery l WHERE l.pullDate < :currentDate ORDER BY l.pullDate"
         )
-)
+})
 public class Lottery {
 
     @Id
@@ -33,9 +36,9 @@ public class Lottery {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "lottery")
     private List<Ticket> tickets;
 
-    @ManyToOne
-    @JoinColumn(name = "WINNER")
-    private Player winner;
+    @OneToOne
+    @JoinColumn(name = "WINNING_TICKET")
+    private Ticket winningTicket;
 
     public Lottery() {
     }
@@ -78,11 +81,11 @@ public class Lottery {
         this.tickets = tickets;
     }
 
-    public Player getWinner() {
-        return winner;
+    public Ticket getWinningTicket() {
+        return winningTicket;
     }
 
-    public void setWinner(Player winner) {
-        this.winner = winner;
+    public void setWinningTicket(Ticket ticket) {
+        this.winningTicket = ticket;
     }
 }

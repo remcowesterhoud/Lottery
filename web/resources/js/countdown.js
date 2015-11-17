@@ -61,6 +61,7 @@ function initializeCountdown(endTime) {
         }
     }
 
-    updateClock(); // run function once at first to avoid delay
+    // run function once at first to avoid delay
+    updateClock();
     var timeInterval = setInterval(updateClock, 1000);
 }

@@ -11,7 +11,32 @@
         <ui:composition template="layout.xhtml">
 
             <ui:define name="content">
-                <h:outputLabel value="Hello, world"/>
+
+                <div class="col-xs-10 col-xs-offset-1">
+
+                    <h:dataTable id="winnersTable" value="#{lotteryBean.previousLotteries}" var="lottery" styleClass="table table-striped">
+                        <h:column>
+                            <f:facet name="header">
+                                Lottery date
+                            </f:facet>
+                            #{lottery.pullDate}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Winning ticket
+                            </f:facet>
+                            #{empty lottery.winningTicket.ticketNumber ? "No tickets sold" : lottery.winningTicket.ticketNumber}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Winner
+                            </f:facet>
+                            #{empty lottery.winningTicket.player.fistName ? "No tickets sold" : lottery.winningTicket.player.fistName} #{lottery.winningTicket.player.lastName}
+                        </h:column>
+                    </h:dataTable>
+
+                </div>
+
             </ui:define>
 
         </ui:composition>
