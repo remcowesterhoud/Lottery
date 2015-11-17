@@ -1,13 +1,11 @@
 package lottery.beans;
 
-import lottery.ejb.TicketEJB;
-import lottery.entities.Lottery;
-import lottery.entities.Player;
-import lottery.entities.Ticket;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+
+import lottery.ejb.TicketEJB;
+import lottery.entities.Ticket;
 
 /**
  * Created by Remco on 15-11-2015.
@@ -22,16 +20,16 @@ public class TicketBean {
 
     /**
      * Create new ticket and attach it to a player and lottery
+     *
      * @param playerId
      * @param lotteryId
      * @return Created ticket or null
      */
-    public Ticket createTicket(int playerId, int lotteryId){
+    public Ticket createTicket(int playerId, int lotteryId) {
         ticket = ticketEJB.createTicket(playerId, lotteryId);
-        if (ticket != null){
+        if (ticket != null) {
             return ticket;
-        }
-        else {
+        } else {
             return null;
         }
     }

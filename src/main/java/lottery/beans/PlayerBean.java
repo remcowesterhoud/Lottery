@@ -1,18 +1,18 @@
 package lottery.beans;
 
 
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.validation.constraints.NotNull;
+
 import lottery.ejb.LotteryEJB;
 import lottery.ejb.PlayerEJB;
 import lottery.ejb.TicketEJB;
 import lottery.entities.Lottery;
 import lottery.entities.Player;
 import lottery.entities.Ticket;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -49,10 +49,9 @@ public class PlayerBean {
         Lottery lottery = lotteryEJB.getNextLottery();
         if (player != null && lottery != null) {
             Ticket ticket = ticketBean.createTicket(player.getPlayerId(), lottery.getLotteryId());
-            if (ticket != null){
+            if (ticket != null) {
                 setSignupConfirmed(true);
-            }
-            else {
+            } else {
                 setSignupFailed(false);
             }
         } else {

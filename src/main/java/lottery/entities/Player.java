@@ -1,9 +1,9 @@
 package lottery.entities;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -34,6 +34,7 @@ public class Player {
 
     /**
      * Constructor
+     *
      * @param fistName
      * @param lastName
      * @param email
@@ -46,6 +47,7 @@ public class Player {
 
     /**
      * Constructor
+     *
      * @param fistName
      * @param lastName
      * @param email

@@ -1,11 +1,11 @@
 package lottery.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Remco on 14-11-2015.
@@ -48,6 +48,7 @@ public class Lottery {
 
     /**
      * Constructor
+     *
      * @param pullDate
      */
     public Lottery(Date pullDate) {
@@ -56,6 +57,7 @@ public class Lottery {
 
     /**
      * Constructor
+     *
      * @param pullDate
      * @param tickets
      */
@@ -86,8 +88,7 @@ public class Lottery {
     public List<Ticket> getTickets() {
         if (tickets != null) {
             return tickets;
-        }
-        else {
+        } else {
             return new ArrayList<Ticket>();
         }
     }

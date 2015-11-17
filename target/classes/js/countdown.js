@@ -6,7 +6,7 @@
 
 function getTimeRemaining(endTime) {
     var parsedDate = Date.parse(endTime);
-    if (isNaN(parsedDate)){
+    if (isNaN(parsedDate)) {
         return {
             'totalDiff': 0,
             'seconds': 0,
