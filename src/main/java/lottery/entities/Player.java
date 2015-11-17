@@ -26,15 +26,31 @@ public class Player {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
     private List<Ticket> tickets;
 
+    /**
+     * Constructor
+     */
     public Player() {
     }
 
+    /**
+     * Constructor
+     * @param fistName
+     * @param lastName
+     * @param email
+     */
     public Player(String fistName, String lastName, String email) {
         this.fistName = fistName;
         this.lastName = lastName;
         this.email = email;
     }
 
+    /**
+     * Constructor
+     * @param fistName
+     * @param lastName
+     * @param email
+     * @param tickets
+     */
     public Player(String fistName, String lastName, String email, List<Ticket> tickets) {
         this.fistName = fistName;
         this.lastName = lastName;

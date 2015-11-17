@@ -40,13 +40,25 @@ public class Lottery {
     @JoinColumn(name = "WINNING_TICKET")
     private Ticket winningTicket;
 
+    /**
+     * Constructor
+     */
     public Lottery() {
     }
 
+    /**
+     * Constructor
+     * @param pullDate
+     */
     public Lottery(Date pullDate) {
         this.pullDate = pullDate;
     }
 
+    /**
+     * Constructor
+     * @param pullDate
+     * @param tickets
+     */
     public Lottery(Date pullDate, List<Ticket> tickets) {
         this.pullDate = pullDate;
         this.tickets = tickets;
@@ -68,6 +80,9 @@ public class Lottery {
         this.pullDate = pullDate;
     }
 
+    /**
+     * @return List of sold tickets or null if no tickets sold
+     */
     public List<Ticket> getTickets() {
         if (tickets != null) {
             return tickets;

@@ -33,19 +33,23 @@ public class PlayerBean {
     private String firstName, lastName, email;
     private boolean signupConfirmed, signupFailed;
 
+    /**
+     * Constructor
+     */
     public PlayerBean() {
         signupConfirmed = false;
         signupFailed = false;
     }
 
+    /**
+     * Create a player and sign him/her up for the current lottery
+     */
     public void signup() {
         Player player = playerEJB.createPlayer(firstName, lastName, email);
         Lottery lottery = lotteryEJB.getNextLottery();
         if (player != null && lottery != null) {
             Ticket ticket = ticketBean.createTicket(player.getPlayerId(), lottery.getLotteryId());
             if (ticket != null){
-//                playerEJB.addTicket(player.getPlayerId(), ticket);
-//                lotteryEJB.addTicket(lottery.getLotteryId(), ticket);
                 setSignupConfirmed(true);
             }
             else {

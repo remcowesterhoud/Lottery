@@ -27,6 +27,11 @@ public class LotteryEJB extends EJB {
     private static final Logger logger = Logger.getLogger("lottery.ejb.LotteryEJB");
     private Lottery nextLottery;
 
+    /**
+     * Create new lottery
+     * @param pullDate
+     * @return Created lottery or null
+     */
     public Lottery createLottery(Date pullDate) {
         try {
             Lottery lottery = new Lottery(pullDate);
@@ -38,6 +43,9 @@ public class LotteryEJB extends EJB {
         }
     }
 
+    /**
+     * Fetches the next lottery from the database
+     */
     public void fetchNextLottery() {
         try {
             nextLottery = em.createNamedQuery("nextLottery", Lottery.class)
@@ -56,6 +64,10 @@ public class LotteryEJB extends EJB {
         return nextLottery;
     }
 
+    /**
+     * Randomly pulls a winning ticket from the current lottery
+     * @return Winning ticket
+     */
     public Ticket pullWinner(){
         try {
             Lottery lottery = em.find(Lottery.class, nextLottery.getLotteryId());
@@ -82,6 +94,9 @@ public class LotteryEJB extends EJB {
         }
     }
 
+    /**
+     * @return List of lotteries that have ended or null
+     */
     public List<Lottery> getPreviousLotteries(){
         try{
             List<Lottery> lotteries = em.createNamedQuery("previousLotteries", Lottery.class)

@@ -15,6 +15,13 @@ public class PlayerEJB extends EJB{
 
     private static final Logger logger = Logger.getLogger("lottery.ejb.PlayerEJB");
 
+    /**
+     * Creates a new player
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @return Create player or null
+     */
     public Player createPlayer(String firstName, String lastName, String email){
         try {
             Player player = new Player(firstName, lastName, email);

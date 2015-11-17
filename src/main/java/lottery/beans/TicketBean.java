@@ -20,6 +20,12 @@ public class TicketBean {
     private TicketEJB ticketEJB;
     private Ticket ticket;
 
+    /**
+     * Create new ticket and attach it to a player and lottery
+     * @param playerId
+     * @param lotteryId
+     * @return Created ticket or null
+     */
     public Ticket createTicket(int playerId, int lotteryId){
         ticket = ticketEJB.createTicket(playerId, lotteryId);
         if (ticket != null){

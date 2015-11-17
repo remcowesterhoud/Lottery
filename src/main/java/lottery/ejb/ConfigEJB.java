@@ -20,6 +20,10 @@ public class ConfigEJB extends EJB{
     @javax.ejb.EJB
     private TicketEJB ticketEJB;
 
+    /**
+     * Insert dummy data in database for testing purposes
+     * Remove on release and modify persistence.xml
+     */
     @PostConstruct
     public void insertDummyData() {
         try {

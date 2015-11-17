@@ -25,14 +25,24 @@ public class LotteryBean {
     @EJB
     private PlayerEJB playerEJB;
 
+    /**
+     * Constructor
+     */
     public LotteryBean(){
     }
 
+    /**
+     * Randomly pulls a winner for the current lottery.
+     * Fetches the next lottery.
+     */
     public void endLottery(){
         lotteryEJB.pullWinner();
         lotteryEJB.fetchNextLottery();
     }
 
+    /**
+     * @return Pulldate of lottery
+     */
     public String getDate(){
         Lottery lottery = lotteryEJB.getNextLottery();
         if (lottery != null){
@@ -45,6 +55,9 @@ public class LotteryBean {
         }
     }
 
+    /**
+     * @return List of lotteries that have ended.
+     */
     public List<Lottery> getPreviousLotteries(){
         return lotteryEJB.getPreviousLotteries();
     }

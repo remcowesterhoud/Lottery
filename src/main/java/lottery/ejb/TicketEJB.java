@@ -15,6 +15,12 @@ public class TicketEJB extends EJB {
 
     private static final Logger logger = Logger.getLogger("lottery.ejb.TicketEJB");
 
+    /**
+     * Create new ticket
+     * @param playerId
+     * @param lotteryId
+     * @return Created ticket or null
+     */
     public Ticket createTicket(int playerId, int lotteryId){
         try{
             Player player = em.find(Player.class, playerId);
